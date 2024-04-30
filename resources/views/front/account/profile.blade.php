@@ -23,9 +23,10 @@
             </div>
             <div class="col-lg-9">
                 <div class="card border-0 shadow mb-4">
+                @include('front.message')
+
                     <form action="{{route('account.updateProfile')}}" method="post" id="userForm" name ="userForm">
                     @csrf
-                    @method('put')
                     <div class="card-body  p-4">
                         <h3 class="fs-4 mb-1">My Profile</h3>
                         <div class="mb-4">
@@ -48,7 +49,7 @@
                         </div>                        
                     </div>
                     <div class="card-footer  p-4">
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="Submit" class="btn btn-primary">Update</button>
                     </div>
 
 
@@ -56,24 +57,37 @@
                 </div>
 
                 <div class="card border-0 shadow mb-4">
+                <form action="{{ route('account.updatePassword') }}" method="post" id="changePasswordForm" name="changePasswordForm">
+                    @csrf   
                     <div class="card-body p-4">
                         <h3 class="fs-4 mb-1">Change Password</h3>
                         <div class="mb-4">
-                            <label for="" class="mb-2">Old Password*</label>
-                            <input type="password" placeholder="Old Password" class="form-control">
+                            <label for="old_password" class="mb-2">Old Password*</label>
+                            <input type="password" name="old_password" id="old_password" placeholder="Old Password" class="form-control">
+                            @error('old_password')
+                                <p class="invalid-feedback">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="mb-4">
-                            <label for="" class="mb-2">New Password*</label>
-                            <input type="password" placeholder="New Password" class="form-control">
+                            <label for="new_password" class="mb-2">New Password*</label>
+                            <input type="password" name="new_password" id="new_password" placeholder="New Password" class="form-control">
+                            @error('new_password')
+                                <p class="invalid-feedback">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="mb-4">
-                            <label for="" class="mb-2">Confirm Password*</label>
-                            <input type="password" placeholder="Confirm Password" class="form-control">
+                            <label for="confirm_password" class="mb-2">Confirm Password*</label>
+                            <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" class="form-control">
+                            @error('confirm_password')
+                                <p class="invalid-feedback">{{ $message }}</p>
+                            @enderror
                         </div>                        
                     </div>
-                    <div class="card-footer  p-4">
-                        <button type="button" class="btn btn-primary">Update</button>
+                    <div class="card-footer p-4">
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
+                </form>
+
                 </div>                
             </div>
         </div>
@@ -87,69 +101,89 @@
 
 
 @section('customJs')
-
+ 
 <script type="text/javascript">
 
-    $("#userForm").submit(function(e)){
-        e.preventDefault();
+    // $("#userForm").submit(function(e)){
+    //     e.preventDefault();
 
-        $.ajax({
-            url: '{{route('account.updateProfile')}}',
-            type:'put',
-            dataType: 'json',
-            data: $("#userForm").serializeArray(),
-            success: function(response)
-            {
-                if(response.status==true)
-                {
-                    $("#name").removeClass("is-invalid")
-                        .siblings('p')
-                        .removeClass('invalid-feedback')
-                        .html('')
+    //     $.ajax({
+    //         url: '{{route('account.updateProfile')}}',
+    //         type:'post',
+    //         dataType: 'json',
+    //         data: $("#userForm").serializeArray(),
+    //         success: function(response)
+    //         {
+    //             if(response.status==true)
+    //             {
+    //                 $("#name").removeClass("is-invalid")
+    //                     .siblings('p')
+    //                     .removeClass('invalid-feedback')
+    //                     .html('')
 
-                        $("#email").removeClass("is-invalid")
-                        .siblings('p')
-                        .removeClass('invalid-feedback')
-                        .html('')
+    //                     $("#email").removeClass("is-invalid")
+    //                     .siblings('p')
+    //                     .removeClass('invalid-feedback')
+    //                     .html('')
 
-                    window.location.href= "{{ route ('account.profile')}}";
+    //                 window.location.href= "{{ route ('account.profile')}}";
 
-                }
-                else{
-                    var errors = response.error;
+    //             }
+    //             else{
+    //                 var errors = response.error;
 
-                    if(errors.name)
-                    {
-                        $("#name").addClass("is-invalid")
-                        .siblings('p')
-                        .addClass('invalid-feedback')
-                        .html(errors.name)
-                    }else{
-                        $("#name").removeClass("is-invalid")
-                        .siblings('p')
-                        .removeClass('invalid-feedback')
-                        .html('')
-                    }
-                    if(errors.email)
-                    {
-                        $("#email").addClass("is-invalid")
-                        .siblings('p')
-                        .addClass('invalid-feedback')
-                        .html(errors.email)
-                    }else{
-                        $("#email").removeClass("is-invalid")
-                        .siblings('p')
-                        .removeClass('invalid-feedback')
-                        .html('')
-                    }
+    //                 if(errors.name)
+    //                 {
+    //                     $("#name").addClass("is-invalid")
+    //                     .siblings('p')
+    //                     .addClass('invalid-feedback')
+    //                     .html(errors.name)
+    //                 }else{
+    //                     $("#name").removeClass("is-invalid")
+    //                     .siblings('p')
+    //                     .removeClass('invalid-feedback')
+    //                     .html('')
+    //                 }
+    //                 if(errors.email)
+    //                 {
+    //                     $("#email").addClass("is-invalid")
+    //                     .siblings('p')
+    //                     .addClass('invalid-feedback')
+    //                     .html(errors.email)
+    //                 }else{
+    //                     $("#email").removeClass("is-invalid")
+    //                     .siblings('p')
+    //                     .removeClass('invalid-feedback')
+    //                     .html('')
+    //                 }
                     
-                }
+    //             }
 
-            }
+    //         }
 
-        });
-    }
+    //     });
+    // }
 
+
+    // $("#changePasswordForm").submit(function(e){
+    //     e.preventDefault();
+
+    //     $.ajax({
+    //         url: '{{route("account.updatePassword")}}',
+    //         type: 'get',
+    //         dataType: 'json',
+    //         data: $("#changePasswordForm").serializeArray(),
+    //         success:function(response){
+    //             if(response.status==true)
+    //             {
+
+    //             }
+    //         }
+            
+    //     });
+    // });
+
+   
 </script>
 
 @endsection

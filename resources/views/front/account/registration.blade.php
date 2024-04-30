@@ -12,7 +12,9 @@
             <div class="col-md-5">
                 <div class="card shadow border-0 p-5">
                     <h1 class="h3">Register</h1>
-                    <form action="" name="registrationForm" id="registrationForm" >
+                    <form action="{{ route('account.processregistration')}}" name="registrationForm" id="registrationForm" method="post" >
+                    
+                    @csrf
                         <div class="mb-3">
                             <label for="" class="mb-2">Name*</label>
                             <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name">
@@ -33,7 +35,7 @@
                             <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Please Confirm Password">
                        <p></p>
                         </div> 
-                        <button class="btn btn-primary mt-2">Register</button>
+                        <button type="submit" class="btn btn-primary mt-2">Register</button>
                     </form>                    
                 </div>
                 <div class="mt-4 text-center">
@@ -48,44 +50,45 @@
 
 @section('customJs')
 <script>
-$(document).ready(function() {
-    $("#registrationForm").submit(function(e) {
-        e.preventDefault(); 
+// $(document).ready(function() {
+//     $("#registrationForm").submit(function(e) {
+//         e.preventDefault(); 
 
-        $.ajax({
-            url: '{{ route("account.registration")}}',
-            type: 'post',
-            data: $(this).serializeArray(), 
-            dataType: 'json',
-            success: function(response) {
-                if(response.status == false) {
-                    displayErrors(response.errors);
-                } else {
-                    clearErrors();
-                    window.location.href = '{{ route("account.login")}}';
-                }
-            }
-        });
-    });
+//         $.ajax({
+            // url: '{{ route("account.registration")}}',
+//             type: 'post',
+//             data: $(this).serializeArray(), 
+//             dataType: 'json',
+//             success: function(response) {
+//                 if(response.status == false) {
+//                     displayErrors(response.errors);
+//                 } else {
+//                     clearErrors();
+//                     window.location.href = '{{ route("account.login")}}';
+//                 }
+//             }
+//         });
+//     });
 
-    function displayErrors(errors) {
-        $.each(errors, function(key, value) {
-            $("#" + key)
-                .addClass('is-invalid')
-                .siblings('p')
-                .addClass('invalid-feedback')
-                .html(value);
-        });
-    }
+//     function displayErrors(errors) {
+//         $.each(errors, function(key, value) {
+//             $("#" + key)
+//                 .addClass('is-invalid')
+//                 .siblings('p')
+//                 .addClass('invalid-feedback')
+//                 .html(value);
+//         });
+//     }
 
-    function clearErrors() {
-        $("#name, #email, #password, #confirm_password")
-            .removeClass('is-invalid')
-            .siblings('p')
-            .removeClass('invalid-feedback')
-            .html("");
-    }
-});
+//     function clearErrors() {
+//         $("#name, #email, #password, #confirm_password")
+//             .removeClass('is-invalid')
+//             .siblings('p')
+//             .removeClass('invalid-feedback')
+//             .html("");
+//     }
+// });
+// 
 </script>
 
 @endsection
