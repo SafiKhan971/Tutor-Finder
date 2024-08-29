@@ -24,9 +24,9 @@
                             <li class="list-group-item d-flex justify-content-between p-3">
                                 <a href="{{route('account.profile')}}">Account Settings</a>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <a href="{{route('account.createTution')}}">Post a Job</a>
-                            </li>
+                            {{-- <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <a href="{{route('tution.create')}}">Post a Job</a>
+                            </li> --}}
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <a href="{{route('account.myTution')}}">My Tutions</a>
                             </li>
@@ -34,7 +34,7 @@
                                 <a href="{{route('account.myTutionApplications')}}">Jobs Applied</a>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <a href="{{route('account.saveTutions')}}">Saved Jobs</a>
+                                <a href="{{route('tution.stores')}}">Saved Jobs</a>
                             </li>    
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                             <a href="{{route('account.logout')}}">Log out</a>

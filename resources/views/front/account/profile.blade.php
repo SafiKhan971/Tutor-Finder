@@ -40,12 +40,12 @@
                         <p></p>
                         </div>
                         <div class="mb-4">
-                            <label for="" class="mb-2">Designation*</label>
-                            <input type="text" name="designation" id="designation" placeholder="Designation" class="form-control" value="{{$user->designation}}">
+                            <label for="" class="mb-2">Phone*</label>
+                            <input type="text" name="phone" id="phone" placeholder="Phone" class="form-control" value="{{$user->phone}}">
                         </div>
                         <div class="mb-4">
-                            <label for="" class="mb-2">Mobile*</label>
-                            <input type="text" name="mobile" id="mobile" placeholder="Mobile" class="form-control" value="{{ $user->mobile}}">
+                            <label for="" class="mb-2">Address*</label>
+                            <input type="text" name="address" id="address" placeholder="Address" class="form-control" value="{{ $user->address}}">
                         </div>                        
                     </div>
                     <div class="card-footer  p-4">

@@ -1,14 +1,14 @@
-@extends('front.layouts.app')
+@extends('front.layouts.admin-layout')
 @section('main')
-
 <section class="section-5 bg-2">
     <div class="container py-5">
         <div class="row">
             <div class="col">
                 <nav aria-label="breadcrumb" class=" rounded-3 p-3 mb-4">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
+                        <li class="breadcrumb-item">Home</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Users</li>
                     </ol>
                 </nav>
             </div>
@@ -22,23 +22,24 @@
 
             </div>
             <div class="col-lg-9">
+                @include('front.message')
                 <div class="card border-0 shadow mb-4">
                   
                 <div class="card-body card-form">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h3 class="fs-4 mb-1">My Jobs</h3>
+                                <h3 class="fs-4 mb-1">Users</h3>
                             </div>
-                            <div style="margin-top: -10px;">
-                                <a href="{{route('account.createTution')}}" class="btn btn-primary">Post a Job</a>
-                            </div>
+                            {{-- <div style="margin-top: -10px;">
+                                <a href="{{route('tution.create')}}" class="btn btn-primary">Post a Job</a>
+                            </div> --}}
                             
                         </div>
                         <div class="table-responsive">
                             <table class="table ">
                                 <thead class="bg-light">
                                     <tr>
-                                        <th scope="col">ID</th>
+                                        <th scope="col">S No.</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Mobile</th>
@@ -48,11 +49,11 @@
                                 <tbody class="border-0">
 
                                 @if($users->isNotEmpty())
-                                    @foreach($users as $user)
+                                    @foreach($users as $index => $user)
 
                                         <tr class="active">
                                             <td>
-                                                {{$user->id}}
+                                                {{$index + 1}}
                                             </td>
                                             <td>
                                                 <div class="job-name fw-500">{{ $user->name}}</div>
@@ -62,7 +63,7 @@
 
                                                </td> 
                                                <td>
-                                               <div class="info1">{{$user->mobile}}</div>
+                                               <div class="info1">{{$user->phone}}</div>
                                                
                                                </td>
                                               

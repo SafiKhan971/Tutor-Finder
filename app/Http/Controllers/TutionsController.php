@@ -45,10 +45,10 @@ class TutionsController extends Controller
 
         // dd($tution);
 
-        if($tution== null)
-        {
-            abort(404);
-        }
+        // if($tution== null)
+        // {
+        //     abort(404);
+        // }
         
         $count=0;
         if(Auth::user())

@@ -226,7 +226,7 @@
         dataType: 'json',
         success: function(response) {
             if (response.status) {
-                window.location.href = '{{ route("account.saveTutions") }}';
+                window.location.href = '{{ route("tution.stores") }}';
             } else {
                 // Handle error
                 console.error('Error:', response.message);

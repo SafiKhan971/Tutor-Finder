@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tution extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
     public function classType()
     {
@@ -30,6 +31,15 @@ class Tution extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
 
+    public function tutor()
+    {
+        return $this->belongsTo(User::class, 'tuter_id', 'id');
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class, 'subject_id', 'id');
     }
 }

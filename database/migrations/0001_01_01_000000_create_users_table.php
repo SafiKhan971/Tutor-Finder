@@ -17,12 +17,20 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('qualification')->nullable();
+            $table->string('discipline_id')->nullable();
+            $table->string('subjects')->nullable();
+            $table->string('experiece')->nullable();
+            $table->string('availability')->nullable();
             $table->string('image')->nullable();
-            $table->string('designation')->nullable();
-            $table->string('mobile')->nullable();
-            
-
+            $table->string('type')->nullable();
+            $table->integer('hourly_rate')->nullable();
+            $table->text('introduction')->nullable();
+            $table->integer('status')->default(0);
+            $table->enum('role',['admin','user','tutor'])->default('user');
             $table->rememberToken();
             $table->timestamps();
         });

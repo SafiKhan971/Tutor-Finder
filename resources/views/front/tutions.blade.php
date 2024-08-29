@@ -1,11 +1,11 @@
 @extends('front.layouts.app')
 @section('main')
 
-<section class="section-3 py-5 bg-2 ">
+<section class="section-3 py-5 bg-2 mt-5">
     <div class="container">     
         <div class="row">
             <div class="col-6 col-md-10 ">
-                <h2>Find Jobs</h2>  
+                <h2>Best Tuters</h2>  
             </div>
             <div class="col-6 col-md-2">
                 <div class="align-end">
@@ -18,7 +18,7 @@
         </div>
 
         <div class="row pt-5">
-            <div class="col-md-4 col-lg-3 sidebar mb-4">
+            {{-- <div class="col-md-4 col-lg-3 sidebar mb-4">
                 <div class="card border-0 shadow p-4">
                     <div class="mb-4">
                         <h2>Keywords</h2>
@@ -115,193 +115,71 @@
                         </select>
                     </div>                    
                 </div>
-            </div>
-            <div class="col-md-8 col-lg-9 ">
+            </div> --}}
+            <div class="col-md-12 col-lg-12 ">
                 <div class="job_listing_area">                    
                     <div class="job_lists">
                     <div class="row">
-
-
-                        @if($tutions->isNotEmpty())
-
-                            @foreach($tutions as $tution)
-                            
-                                    <div class="col-md-4">
+                        @if ($tutors->isNotEmpty())
+                                @foreach ($tutors as $tutor)
+                                    <div class="col-md-3">
                                         <div class="card border-0 p-3 shadow mb-4">
                                             <div class="card-body">
-                                                <h3 class="border-0 fs-5 pb-2 mb-0">{{$tution->title}}</h3>
-                                                <p>{{Str::words($tution->description,7,'...')}}</p>
-                                                <div class="bg-light p-3 border">
-                                                    <p class="mb-0">
-                                                        <span class="fw-bolder"><i class="fa fa-map-marker"></i></span>
-                                                        <span class="ps-1">{{$tution->location}}</span>
-                                                    </p>
-                                                    <p class="mb-0">
-                                                        <span class="fw-bolder"><i class="fa fa-clock-o"></i></span>
-                                                        <span class="ps-1">{{$tution->category->name}}</span>
-                                                    </p>
-
-
-                                                    @if(!is_null($tution->salary))
-                                                    <p class="mb-0">
-                                                        <span class="fw-bolder"><i class="fa fa-usd"></i></span>
-                                                        <span class="ps-1">{{$tution->salary}}</span>
-                                                    </p>
+                                                <div class="text-center">
+                                                    @if ($tutor->image != '')
+                                                        <img src="{{ asset('profile_pic/' . $tutor->image) }}"
+                                                            alt="avatar" class="rounded-circle img-fluid"
+                                                            style="width: 150px;">
+                                                    @else
+                                                        <img src="{{ asset('/assets/images/avatar7.png') }}" alt="avatar"
+                                                            class="rounded-circle img-fluid" style="width: 150px;">
                                                     @endif
+
+                                                    <h3 class="border-0 fs-5 pb-2 mb-0">{{ $tutor->name }}</h3>
+                                                    <p><strong>Subjects :</strong> {{ Str::words($tutor->subjects, 7) }}</p>
+
+                                                    <!-- Display Rating -->
+                                                    <div class="rating">
+                                                        @php
+                                                            $rating = $tutor->rating ?? 1; // Default rating is 1 if not available
+                                                        @endphp
+                                                        @for ($i = 1; $i <= 5; $i++)
+                                                            @if ($i <= $rating)
+                                                                <i class="fa fa-star text-warning"></i>
+                                                            @else
+                                                                <i class="fa fa-star-o text-warning"></i>
+                                                            @endif
+                                                        @endfor
+                                                    </div>
                                                 </div>
 
+                                                {{-- <div class="bg-light p-3 border">
+                                                <p class="mb-0">
+                                                    <span class="fw-bolder"><i class="fa fa-map-marker"></i></span>
+                                                    <span class="ps-1">{{ $tutor->address }}</span>
+                                                </p>
+                                                <p class="mb-0">
+                                                    <span class="fw-bolder"><i class="fa fa-users"></i></span>
+                                                    <span class="ps-1">{{ $tutor->gender }}</span>
+                                                </p>
+                                
+                                                @if (!is_null($tutor->fee))
+                                                    <p class="mb-0">
+                                                        <span class="fw-bolder"><i class="fa fa-usd"></i></span>
+                                                        <span class="ps-1">{{ $tutor->fee }}</span>
+                                                    </p>
+                                                @endif
+                                            </div> --}}
+
                                                 <div class="d-grid mt-3">
-                                                    <a href="{{route('tutionDetail',$tution->id)}}" class="btn btn-primary btn-lg">Details</a>
+                                                    <a href="{{ route('tutor.show', $tutor->id) }}"
+                                                        class="btn btn-primary btn-lg">Details</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-
-                            @endforeach
-
-                        @else
-                            <div class="col-md-12">Tution Not Found</div>
-
-
-                        @endif
-
-
-
-
-<!-- 
-                        
-                        <div class="col-md-4">
-                            <div class="card border-0 p-3 shadow mb-4">
-                                <div class="card-body">
-                                    <h3 class="border-0 fs-5 pb-2 mb-0">Web Developer</h3>
-                                    <p>We are in need of a Web Developer for our company.</p>
-                                    <div class="bg-light p-3 border">
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-map-marker"></i></span>
-                                            <span class="ps-1">Noida</span>
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-clock-o"></i></span>
-                                            <span class="ps-1">Remote</span>
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-usd"></i></span>
-                                            <span class="ps-1">2-3 Lacs PA</span>
-                                        </p>
-                                    </div>
-
-                                    <div class="d-grid mt-3">
-                                        <a href="job-detail.html" class="btn btn-primary btn-lg">Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card border-0 p-3 shadow mb-4">
-                                <div class="card-body">
-                                    <h3 class="border-0 fs-5 pb-2 mb-0">Web Developer</h3>
-                                    <p>We are in need of a Web Developer for our company.</p>
-                                    <div class="bg-light p-3 border">
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-map-marker"></i></span>
-                                            <span class="ps-1">Noida</span>
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-clock-o"></i></span>
-                                            <span class="ps-1">Remote</span>
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-usd"></i></span>
-                                            <span class="ps-1">2-3 Lacs PA</span>
-                                        </p>
-                                    </div>
-
-                                    <div class="d-grid mt-3">
-                                        <a href="job-detail.html" class="btn btn-primary btn-lg">Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card border-0 p-3 shadow mb-4">
-                                <div class="card-body">
-                                    <h3 class="border-0 fs-5 pb-2 mb-0">Web Developer</h3>
-                                    <p>We are in need of a Web Developer for our company.</p>
-                                    <div class="bg-light p-3 border">
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-map-marker"></i></span>
-                                            <span class="ps-1">Noida</span>
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-clock-o"></i></span>
-                                            <span class="ps-1">Remote</span>
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-usd"></i></span>
-                                            <span class="ps-1">2-3 Lacs PA</span>
-                                        </p>
-                                    </div>
-
-                                    <div class="d-grid mt-3">
-                                        <a href="job-detail.html" class="btn btn-primary btn-lg">Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card border-0 p-3 shadow mb-4">
-                                <div class="card-body">
-                                    <h3 class="border-0 fs-5 pb-2 mb-0">Web Developer</h3>
-                                    <p>We are in need of a Web Developer for our company.</p>
-                                    <div class="bg-light p-3 border">
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-map-marker"></i></span>
-                                            <span class="ps-1">Noida</span>
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-clock-o"></i></span>
-                                            <span class="ps-1">Remote</span>
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-usd"></i></span>
-                                            <span class="ps-1">2-3 Lacs PA</span>
-                                        </p>
-                                    </div>
-
-                                    <div class="d-grid mt-3">
-                                        <a href="job-detail.html" class="btn btn-primary btn-lg">Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card border-0 p-3 shadow mb-4">
-                                <div class="card-body">
-                                    <h3 class="border-0 fs-5 pb-2 mb-0">Web Developer</h3>
-                                    <p>We are in need of a Web Developer for our company.</p>
-                                    <div class="bg-light p-3 border">
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-map-marker"></i></span>
-                                            <span class="ps-1">Noida</span>
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-clock-o"></i></span>
-                                            <span class="ps-1">Remote</span>
-                                        </p>
-                                        <p class="mb-0">
-                                            <span class="fw-bolder"><i class="fa fa-usd"></i></span>
-                                            <span class="ps-1">2-3 Lacs PA</span>
-                                        </p>
-                                    </div>
-
-                                    <div class="d-grid mt-3">
-                                        <a href="job-detail.html" class="btn btn-primary btn-lg">Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                                                 
+                                @endforeach
+                            @endif                   
                        </div>
                     </div>
                 </div>

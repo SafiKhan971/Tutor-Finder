@@ -22,7 +22,7 @@
                     <div class="card-body card-form">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h3 class="fs-4 mb-1">Tutions</h3>
+                                <h3 class="fs-4 mb-1">Tutors</h3>
                             </div>
                             <div style="margin-top: -10px;"></div>
                         </div>

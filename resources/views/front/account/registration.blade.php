@@ -11,7 +11,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-5">
                 <div class="card shadow border-0 p-5">
-                    <h1 class="h3">Register</h1>
+                    <h1 class="h3">Register As Student</h1>
                     <form action="{{ route('account.processregistration')}}" name="registrationForm" id="registrationForm" method="post" >
                     
                     @csrf
@@ -36,10 +36,11 @@
                        <p></p>
                         </div> 
                         <button type="submit" class="btn btn-primary mt-2">Register</button>
+                        <a href="{{ route('tutor.register') }}" class="float-end mt-3">Register As Tutor</a>
                     </form>                    
                 </div>
                 <div class="mt-4 text-center">
-                    <p>Have an account? <a  href="login.html">Login</a></p>
+                    <p>Have an account? <a  href="{{ route('account.login') }}">Login</a></p>
                 </div>
             </div>
         </div>

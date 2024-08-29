@@ -14,26 +14,14 @@ return new class extends Migration
         Schema::create('tutions', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('class_type_id')->constrained()->onDelete('cascade');
-            $table->integer('no_of_stu');
-            $table->string('salary')->nullable();
-            $table->string('location');
-            $table->text('description')->nullable();
-            $table->text('benefits')->nullable();
-            $table->text('responsibility')->nullable();
-            $table->text('qualifications')->nullable();
-            $table->string('experience');
-            
-            
-            $table->string('gurdian_name');
-            $table->string('gurdian_location')->nullable();
-            $table->string('gurdian_number');
-
-            
-            
-            
-            
+            $table->foreignId('tuter_id')->nullable()->constrained('users','id');
+            $table->foreignId('student_id')->nullable()->constrained('users','id');
+            $table->foreignId('subject_id')->nullable()->constrained('subjects','id');
+            $table->text('week_days')->nullable();
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
+            $table->integer('duration');
+            $table->tinyInteger('status')->nullable();
             $table->timestamps();
         });
     }

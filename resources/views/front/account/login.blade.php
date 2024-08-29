@@ -27,7 +27,7 @@
         @endif
 
 
-        <div class="row d-flex justify-content-center">
+        <div class="row d-flex justify-content-center mt-5">
             <div class="col-md-5">
                 <div class="card shadow border-0 p-5">
                     <h1 class="h3">Login</h1>
@@ -51,7 +51,7 @@
 
                         <div class="justify-content-between d-flex">
                         <button class="btn btn-primary mt-2">Login</button>
-                            <a href="forgot-password.html" class="mt-3">Forgot Password?</a>
+                            {{-- <a href="forgot-password.html" class="mt-3">Forgot Password?</a> --}}
                         </div>
                     </form>                    
                 </div>

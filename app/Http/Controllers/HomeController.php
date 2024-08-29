@@ -2,39 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\User;
 use App\Models\Tution;
+use App\Models\Category;
+use App\Models\Discipline;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    //This method will show our homepage
-    
-    public function index()
-    {
-      // echo 'kvmfk';
+   //This method will show our homepage
 
-      $categories= Category::where('status',1)->orderBy('name','ASC')->take(8)->get();
+   public function index()
+   {
+      $data['disciplines'] = Discipline::all();
+      $data['subjects'] = Subject::with('discipline')->take(8)->get();
+      $data['tutors'] = User::where('role', 'tutor')
+         
+         ->where('status', 1)
+         ->withAvg('rating','rating')
+         ->take(8)->get();
 
+      return view('front.home', $data);
+   }
 
-       
-      $featuredTutions= Tution::where('status',1)->orderBy('created_at','DESC')->with('classType')->where('isFeatured',1)->take(6)->get();
+   public function contact()
+   {
+      return view('front.contact');
+   }
 
+   public function about_us()
+   {
+      return view('front.about-us');
+   }
 
-       
-      $latestTutions= Tution::where('status',1)->with('classType')->orderBy('created_at','DESC')->take(6)->get();
-
-
-
-       return view('front.home',[
-         'categories'=> $categories,
-         'featuredTutions'=>$featuredTutions,
-         'latestTutions'=>$latestTutions
-       ]);
-    }
-
-    public function contact()
-    {
-       return view('front.contact');
-    }
+   public function faqs()
+   {
+      return view('front.faqs');
+   }
 }

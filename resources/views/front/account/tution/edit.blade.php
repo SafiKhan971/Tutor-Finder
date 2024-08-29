@@ -93,7 +93,6 @@
                                   <div class="mb-4 col-md-6">
                                       <label for="" class="mb-2">Salary</label>
                                       <input value="{{ $tution->salary}}" type="text" placeholder="Salary" id="salary" name="salary" class="form-control">
-                                 
                                     </div>
       
                                   <div class="mb-4 col-md-6">
