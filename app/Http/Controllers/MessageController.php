@@ -15,10 +15,11 @@ class MessageController extends Controller
 
     public function index()
     {
-        $senderIds = Message::where('from_user', '!=', auth()->user()->id)->select('from_user')->distinct()->pluck('from_user');
+        $senderIds = Message::where('from_user', '!=', auth()->user()->id)
+        ->where('to_user', auth()->user()->id)
+        ->distinct()->pluck('from_user');
         $senders = User::whereIn('id', $senderIds)->paginate(10);
         $data['senders'] = $senders;
-        // dd($data['senders']->toArray());
         return view('messages.index', $data);
     }
 

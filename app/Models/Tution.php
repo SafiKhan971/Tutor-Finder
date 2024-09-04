@@ -38,6 +38,11 @@ class Tution extends Model
         return $this->belongsTo(User::class, 'tuter_id', 'id');
     }
 
+    public function student()
+    {
+        return $this->belongsTo(User::class, 'student_id', 'id');
+    }
+
     public function subject()
     {
         return $this->belongsTo(Subject::class, 'subject_id', 'id');

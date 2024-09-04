@@ -1,4 +1,8 @@
-@extends('front.layouts.tutor-layout')
+@php
+    $layout = auth()->user()->role == 'tutor' ? 'front.layouts.tutor-layout' : 'front.layouts.app';
+@endphp
+
+@extends($layout)
 @section('main')
     <section class="section-5 bg-2">
         <div class="container py-5">
@@ -15,7 +19,11 @@
             </div>
             <div class="row">
                 <div class="col-lg-3">
+                    @if (auth()->user()->role == 'tutor')
                     @include('tutor.sidebar')
+                    @else
+                    @include('front.account.sidebar')
+                    @endif
                 </div>
                 <div class="col-lg-9">
                     @include('front.message')
@@ -56,10 +64,12 @@
                                                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                                         </button>
                                                         <ul class="dropdown-menu dropdown-menu-end">
-                                                            <li><a class="dropdown-item" href="{{ route('message.read', $sender->id) }}">
+                                                            <li><a class="dropdown-item"
+                                                                    href="{{ route('message.read', $sender->id) }}">
                                                                     <i class="fa fa-remove" aria-hidden="true"></i>
                                                                     Mark As Read</a></li>
-                                                            <li><a class="dropdown-item" href="{{ route('message.destroy', $sender->id) }}">
+                                                            <li><a class="dropdown-item"
+                                                                    href="{{ route('message.destroy', $sender->id) }}">
                                                                     <i class="fa fa-remove" aria-hidden="true"></i>
                                                                     Delete</a></li>
                                                         </ul>

@@ -72,6 +72,10 @@ Route::middleware(Authenticate::class)->group(function () {
 Route::middleware(TutorMiddleware::class)->group(function () {
     Route::get('/tutor/profile', [TutorController::class, 'profile'])->name('tutor.profile');
     Route::get('/tutor/bookings', [BookingController::class, 'bookings'])->name('tutor.booking');
+    Route::get('/tutor/tutions', [TutorController::class, 'tutions'])->name('tutor.tution');
+    Route::get('/tutor/messages', [TutorController::class, 'messages'])->name('tutor.message');
+    Route::get('/tutor/subjects', [TutorController::class, 'subjects'])->name('tutor.subject');
+    Route::get('/tutor/subjects/destroy/{id}', [TutorController::class, 'destroySubject'])->name('tutor.subject.destroy');
 });
 
 
@@ -112,7 +116,6 @@ Route::get('/contact/all-delete', [ContactController::class, 'deleteAll'])->name
 
 // tutions
 Route::get('/tutions', [TutionsController::class, 'index'])->name('tutions');
-
 Route::get('/account/my-tutions', [AccountController::class, 'myTution'])->name('account.myTution');
 Route::get('/account/my-tutions/edit/{tutionId}', [AccountController::class, 'editTution'])->name('account.editTution');
 Route::post('/account/update-tution/{tutionId}', [AccountController::class, 'updateJob'])->name('account.updateJob');

@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Tutor;
 use App\Models\Rating;
-use App\Models\Discipline;
+use App\Models\Tution;
 use App\Models\Subject;
+use App\Models\Discipline;
 use App\Models\TutorSubject;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,9 +21,8 @@ class TutorController extends Controller
     {
         $data['disciplines'] = Discipline::all();
         $data['subjects'] = Subject::all();
-        $data['discipline_id'] = TutorSubject::where('tutor_id', auth()->user()->id)->pluck('discipline_id')->first();
-        $data['tutor_subjects'] = TutorSubject::where('tutor_id', auth()->user()->id)
-            ->with('subject')->get();
+        $data['discipline_id'] = TutorSubject::all();
+        $data['tutor_subjects'] = TutorSubject::with('subject')->get();
         return view('tutor.register', $data);
     }
 
@@ -312,5 +312,30 @@ class TutorController extends Controller
         $disciplineId = $request->input('discipline_id');
         $subjects = Subject::where('discipline_id', $disciplineId)->get();
         return response()->json(['subjects' => $subjects]);
+    }
+
+    public function tutions()
+    {
+        $tutions = Tution::where('tuter_id', Auth::id())
+        ->with('student', 'subject')->orderBy('created_at', 'DESC')->paginate(10);
+
+        // dd($tutions);
+        return view('tutor.my-tutions', [
+            'tutions' => $tutions,
+        ]);
+    }
+
+    public function subjects()
+    {
+        $data['subjects'] = TutorSubject::where('tutor_id', Auth::id())
+        ->with('subject.discipline')->paginate(10);
+        return view('tutor.subjects', $data);
+    }
+
+    public function destroySubject($id)
+    {
+        TutorSubject::where('id', $id)->delete();
+        session()->flash('success', 'Subject Deleted Successfully !!!');
+        return redirect()->back();
     }
 }
